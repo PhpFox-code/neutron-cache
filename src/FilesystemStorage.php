@@ -1,11 +1,11 @@
 <?php
 
-namespace Phpfox\Cache;
+namespace Phpfox\CacheManager;
 
 /**
  * Class FilesystemStorage
  *
- * @package Phpfox\Cache
+ * @package Phpfox\CacheManager
  */
 class FilesystemStorage implements StorageInterface
 {

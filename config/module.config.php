@@ -1,8 +1,7 @@
 <?php
 
-namespace Phpfox\Cache;
+namespace Phpfox\CacheManager;
 
 return [
-    'aliases'   => [],
     'factories' => [],
 ];

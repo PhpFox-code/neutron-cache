@@ -1,12 +1,12 @@
 <?php
 
-namespace Phpfox\Cache;
+namespace Phpfox\CacheManager;
 
 
 /**
  * Interface StorageInterface
  *
- * @package Phpfox\Cache
+ * @package Phpfox\CacheManager
  */
 interface StorageInterface
 {
