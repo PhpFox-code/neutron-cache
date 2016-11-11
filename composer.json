@@ -1,0 +1,25 @@
+{
+  "name": "codelego/phpfox-cache",
+  "description": "PhpFox Cache Component",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Nam Nguyen",
+      "email": "nam.ngvan@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Phpfox\\Cache\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Phpfox\\Cache\\": "test/"
+    }
+  },
+  "require": {},
+  "require-dev": {}
+}
