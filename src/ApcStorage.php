@@ -2,12 +2,15 @@
 
 namespace Phpfox\CacheManager;
 
+
 /**
- * Class FilesystemStorage
+ * Class ApcStorage
+ *
+ * Implementation Simple APC cache support.
  *
  * @package Phpfox\CacheManager
  */
-class FilesystemStorage implements StorageInterface
+class ApcStorage implements StorageInterface
 {
     public function get($key)
     {

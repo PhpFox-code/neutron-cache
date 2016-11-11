@@ -2,13 +2,9 @@
 
 namespace Phpfox\CacheManager;
 
-/**
- * Class FilesystemStorage
- *
- * @package Phpfox\CacheManager
- */
-class FilesystemStorage implements StorageInterface
+class RedisStorage implements StorageInterface
 {
+
     public function get($key)
     {
         // TODO: Implement get() method.
