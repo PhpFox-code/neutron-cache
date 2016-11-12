@@ -49,8 +49,8 @@ class FilesystemCachePool implements CacheItemPoolInterface
     protected function getFilename($name)
     {
         $path = md5($name);
-        $path = substr($path, 0, 3) . PATH_SEPARATOR . $path;
-        return $this->directory . PATH_SEPARATOR . $path;
+        $path = substr($path, 0, 3) . DIRECTORY_SEPARATOR . $path;
+        return $this->directory . DIRECTORY_SEPARATOR . $path;
     }
 
     /**
@@ -77,7 +77,7 @@ class FilesystemCachePool implements CacheItemPoolInterface
 
         $data = unserialize(file_get_contents($filename));
 
-        if (!$data instanceof CacheItem || $data->expiration < time()) {
+        if (!$data instanceof CacheItem || ($data->expiration && $data->expiration < time())) {
             return null;
         }
 
@@ -144,6 +144,10 @@ class FilesystemCachePool implements CacheItemPoolInterface
     public function save(CacheItemInterface $item)
     {
         $filename = $this->getFilename($item->getKey());
+
+        if (!$this->ensureFilename($filename)) {
+            return false;
+        }
         if (!file_put_contents($filename, serialize($item))) {
             return false;
         }
