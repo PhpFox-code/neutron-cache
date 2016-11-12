@@ -2,9 +2,13 @@
 
 namespace Phpfox\CacheManager;
 
+
 /**
- * Exception interface for all exceptions thrown by an Implementing Library.
+ * Class CacheException
+ *
+ * @package Phpfox\CacheManager
  */
 class CacheException extends \Exception
 {
+
 }

@@ -6,25 +6,25 @@ namespace Phpfox\CacheManager;
  * CacheItemPoolInterface generates CacheItemInterface objects.
  *
  * The primary purpose of Cache\CacheItemPoolInterface is to accept a key from
- * the Calling Library and return the associated Cache\CacheItemInterface object.
- * It is also the primary point of interaction with the entire cache collection.
- * All configuration and initialization of the Pool is left up to an
- * Implementing Library.
+ * the Calling Library and return the associated Cache\CacheItemInterface
+ * object. It is also the primary point of interaction with the entire cache
+ * collection. All configuration and initialization of the Pool is left up to
+ * an Implementing Library.
  */
 interface CacheItemPoolInterface
 {
     /**
      * Returns a Cache Item representing the specified key.
      *
-     * This method must always return a CacheItemInterface object, even in case of
-     * a cache miss. It MUST NOT return null.
+     * This method must always return a CacheItemInterface object, even in case
+     * of a cache miss. It MUST NOT return null.
      *
      * @param string $key
      *   The key for which to return the corresponding Cache Item.
      *
      * @throws InvalidArgumentException
-     *   If the $key string is not a legal value a \Phpfox\CacheManager\InvalidArgumentException
-     *   MUST be thrown.
+     *   If the $key string is not a legal value a
+     *   \Phpfox\CacheManager\InvalidArgumentException MUST be thrown.
      *
      * @return CacheItemInterface
      *   The corresponding Cache Item.
@@ -38,8 +38,8 @@ interface CacheItemPoolInterface
      *   An indexed array of keys of items to retrieve.
      *
      * @throws InvalidArgumentException
-     *   If any of the keys in $keys are not a legal value a \Phpfox\CacheManager\InvalidArgumentException
-     *   MUST be thrown.
+     *   If any of the keys in $keys are not a legal value a
+     *   \Phpfox\CacheManager\InvalidArgumentException MUST be thrown.
      *
      * @return array|\Traversable
      *   A traversable collection of Cache Items keyed by the cache keys of
@@ -47,21 +47,22 @@ interface CacheItemPoolInterface
      *   key is not found. However, if no keys are specified then an empty
      *   traversable MUST be returned instead.
      */
-    public function getItems(array $keys = array());
+    public function getItems(array $keys = []);
 
     /**
      * Confirms if the cache contains specified cache item.
      *
-     * Note: This method MAY avoid retrieving the cached value for performance reasons.
-     * This could result in a race condition with CacheItemInterface::get(). To avoid
-     * such situation use CacheItemInterface::isHit() instead.
+     * Note: This method MAY avoid retrieving the cached value for performance
+     * reasons. This could result in a race condition with
+     * CacheItemInterface::get(). To avoid such situation use
+     * CacheItemInterface::isHit() instead.
      *
      * @param string $key
      *   The key for which to check existence.
      *
      * @throws InvalidArgumentException
-     *   If the $key string is not a legal value a \Phpfox\CacheManager\InvalidArgumentException
-     *   MUST be thrown.
+     *   If the $key string is not a legal value a
+     *   \Phpfox\CacheManager\InvalidArgumentException MUST be thrown.
      *
      * @return bool
      *   True if item exists in the cache, false otherwise.
@@ -83,11 +84,12 @@ interface CacheItemPoolInterface
      *   The key to delete.
      *
      * @throws InvalidArgumentException
-     *   If the $key string is not a legal value a \Phpfox\CacheManager\InvalidArgumentException
-     *   MUST be thrown.
+     *   If the $key string is not a legal value a
+     *   \Phpfox\CacheManager\InvalidArgumentException MUST be thrown.
      *
      * @return bool
-     *   True if the item was successfully removed. False if there was an error.
+     *   True if the item was successfully removed. False if there was an
+     *   error.
      */
     public function deleteItem($key);
 
@@ -96,13 +98,14 @@ interface CacheItemPoolInterface
      *
      * @param string[] $keys
      *   An array of keys that should be removed from the pool.
-
+     *
      * @throws InvalidArgumentException
-     *   If any of the keys in $keys are not a legal value a \Phpfox\CacheManager\InvalidArgumentException
-     *   MUST be thrown.
+     *   If any of the keys in $keys are not a legal value a
+     *   \Phpfox\CacheManager\InvalidArgumentException MUST be thrown.
      *
      * @return bool
-     *   True if the items were successfully removed. False if there was an error.
+     *   True if the items were successfully removed. False if there was an
+     *   error.
      */
     public function deleteItems(array $keys);
 
@@ -113,7 +116,8 @@ interface CacheItemPoolInterface
      *   The cache item to save.
      *
      * @return bool
-     *   True if the item was successfully persisted. False if there was an error.
+     *   True if the item was successfully persisted. False if there was an
+     *   error.
      */
     public function save(CacheItemInterface $item);
 
@@ -124,7 +128,8 @@ interface CacheItemPoolInterface
      *   The cache item to save.
      *
      * @return bool
-     *   False if the item could not be queued or if a commit was attempted and failed. True otherwise.
+     *   False if the item could not be queued or if a commit was attempted and
+     *   failed. True otherwise.
      */
     public function saveDeferred(CacheItemInterface $item);
 
@@ -132,7 +137,8 @@ interface CacheItemPoolInterface
      * Persists any deferred cache items.
      *
      * @return bool
-     *   True if all not-yet-saved items were successfully saved or there were none. False otherwise.
+     *   True if all not-yet-saved items were successfully saved or there were
+     *   none. False otherwise.
      */
     public function commit();
 }
