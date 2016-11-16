@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\CacheManager;
+namespace Phpfox\Cache;
 
 /**
  * CacheItemPoolInterface generates CacheItemInterface objects.
@@ -24,7 +24,7 @@ interface CacheItemPoolInterface
      *
      * @throws InvalidArgumentException
      *   If the $key string is not a legal value a
-     *   \Phpfox\CacheManager\InvalidArgumentException MUST be thrown.
+     *   \Phpfox\Cache\InvalidArgumentException MUST be thrown.
      *
      * @return CacheItemInterface
      *   The corresponding Cache Item.
@@ -39,7 +39,7 @@ interface CacheItemPoolInterface
      *
      * @throws InvalidArgumentException
      *   If any of the keys in $keys are not a legal value a
-     *   \Phpfox\CacheManager\InvalidArgumentException MUST be thrown.
+     *   \Phpfox\Cache\InvalidArgumentException MUST be thrown.
      *
      * @return array|\Traversable
      *   A traversable collection of Cache Items keyed by the cache keys of
@@ -62,7 +62,7 @@ interface CacheItemPoolInterface
      *
      * @throws InvalidArgumentException
      *   If the $key string is not a legal value a
-     *   \Phpfox\CacheManager\InvalidArgumentException MUST be thrown.
+     *   \Phpfox\Cache\InvalidArgumentException MUST be thrown.
      *
      * @return bool
      *   True if item exists in the cache, false otherwise.
@@ -85,7 +85,7 @@ interface CacheItemPoolInterface
      *
      * @throws InvalidArgumentException
      *   If the $key string is not a legal value a
-     *   \Phpfox\CacheManager\InvalidArgumentException MUST be thrown.
+     *   \Phpfox\Cache\InvalidArgumentException MUST be thrown.
      *
      * @return bool
      *   True if the item was successfully removed. False if there was an
@@ -101,7 +101,7 @@ interface CacheItemPoolInterface
      *
      * @throws InvalidArgumentException
      *   If any of the keys in $keys are not a legal value a
-     *   \Phpfox\CacheManager\InvalidArgumentException MUST be thrown.
+     *   \Phpfox\Cache\InvalidArgumentException MUST be thrown.
      *
      * @return bool
      *   True if the items were successfully removed. False if there was an

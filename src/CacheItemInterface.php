@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\CacheManager;
+namespace Phpfox\Cache;
 
 /**
  * CacheItemInterface defines an interface for interacting with objects inside

@@ -1,6 +1,6 @@
 {
-  "name": "codelego/phpfox-cache-manager",
-  "description": "PhpFox Cache Component",
+  "name": "codelego/phpfox-cache",
+  "description": "Cache library for phpfox framework.",
   "type": "library",
   "license": "MIT",
   "authors": [
@@ -12,12 +12,12 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "Phpfox\\CacheManager\\": "src/"
+      "Phpfox\\Cache\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Phpfox\\CacheManager\\": "test/"
+      "Phpfox\\Cache\\": "test/"
     }
   },
   "require": {},

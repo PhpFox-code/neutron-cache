@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\CacheManager;
+namespace Phpfox\Cache;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -9,7 +9,7 @@ use RecursiveIteratorIterator;
  * Simple filesystem cache on local.
  * implement CacheItemPoolInterface
  *
- * @package Phpfox\CacheManager
+ * @package Phpfox\Cache
  */
 class FilesystemCachePool implements CacheItemPoolInterface
 {

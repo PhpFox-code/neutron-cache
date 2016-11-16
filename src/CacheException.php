@@ -1,12 +1,12 @@
 <?php
 
-namespace Phpfox\CacheManager;
+namespace Phpfox\Cache;
 
 
 /**
  * Class CacheException
  *
- * @package Phpfox\CacheManager
+ * @package Phpfox\Cache
  */
 class CacheException extends \Exception
 {

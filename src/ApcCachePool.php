@@ -1,13 +1,13 @@
 <?php
 
-namespace Phpfox\CacheManager;
+namespace Phpfox\Cache;
 
 /**
  * Class ApcCachePool
  *
  * Require apc extension
  *
- * @package Phpfox\CacheManager
+ * @package Phpfox\Cache
  */
 class ApcCachePool implements CacheItemPoolInterface
 {

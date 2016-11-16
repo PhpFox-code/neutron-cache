@@ -1,11 +1,11 @@
 <?php
 
-namespace Phpfox\CacheManager;
+namespace Phpfox\Cache;
 
 /**
  * Class CacheItem
  *
- * @package Phpfox\CacheManager
+ * @package Phpfox\Cache
  */
 class CacheItem implements CacheItemInterface
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Phpfox\CacheManager;
+namespace Phpfox\Cache;
 
 
 class MemcacheCachePool

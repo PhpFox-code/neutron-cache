@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\CacheManager;
+namespace Phpfox\Cache;
 
 return [
     'factories' => [],
