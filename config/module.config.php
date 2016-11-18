@@ -3,5 +3,7 @@
 namespace Phpfox\Cache;
 
 return [
-    'factories' => [],
+    'services' => [
+        'cache' => CacheManager::class,
+    ],
 ];

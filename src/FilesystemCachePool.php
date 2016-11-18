@@ -41,30 +41,11 @@ class FilesystemCachePool implements CacheItemPoolInterface
         $this->debug = $debug;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    protected function getFilename($name)
+    public function getItems(array $keys = [])
     {
-        $path = md5($name);
-        $path = substr($path, 0, 3) . DIRECTORY_SEPARATOR . $path;
-        return $this->directory . DIRECTORY_SEPARATOR . $path;
-    }
-
-    /**
-     * @param string $filename
-     *
-     * @return bool
-     */
-    protected function ensureFilename($filename)
-    {
-        $dir = dirname($filename);
-        if (!is_dir($dir) && !@mkdir($dir, 0777, true)) {
-            return false;
-        }
-        return true;
+        return array_map(function ($v) {
+            return $this->getItem($v);
+        }, $keys);
     }
 
     public function getItem($key)
@@ -77,19 +58,26 @@ class FilesystemCachePool implements CacheItemPoolInterface
 
         $data = unserialize(file_get_contents($filename));
 
-        if (!$data instanceof CacheItem || ($data->expiration && $data->expiration < time())) {
+        if (!$data instanceof CacheItem
+            || ($data->expiration
+                && $data->expiration < time())
+        ) {
             return null;
         }
 
         return $data;
     }
 
-
-    public function getItems(array $keys = [])
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    protected function getFilename($name)
     {
-        return array_map(function ($v) {
-            return $this->getItem($v);
-        }, $keys);
+        $path = md5($name);
+        $path = substr($path, 0, 3) . DIRECTORY_SEPARATOR . $path;
+        return $this->directory . DIRECTORY_SEPARATOR . $path;
     }
 
     public function hasItem($key)
@@ -116,6 +104,15 @@ class FilesystemCachePool implements CacheItemPoolInterface
         }
     }
 
+    public function deleteItems(array $keys)
+    {
+        array_walk($keys, function ($v) {
+            $this->deleteItem($v);
+        });
+
+        return true;
+    }
+
     public function deleteItem($key)
     {
         if (file_exists($filename = $this->getFilename($key))) {
@@ -132,13 +129,17 @@ class FilesystemCachePool implements CacheItemPoolInterface
         return true;
     }
 
-    public function deleteItems(array $keys)
+    public function saveDeferred(CacheItemInterface $item)
     {
-        array_walk($keys, function ($v) {
-            $this->deleteItem($v);
-        });
-
+        $this->waitItems[] = $item;
         return true;
+    }
+
+    public function commit()
+    {
+        array_walk($this->waitItems, function ($v) {
+            $this->save($v);
+        });
     }
 
     public function save(CacheItemInterface $item)
@@ -154,16 +155,17 @@ class FilesystemCachePool implements CacheItemPoolInterface
         return true;
     }
 
-    public function saveDeferred(CacheItemInterface $item)
+    /**
+     * @param string $filename
+     *
+     * @return bool
+     */
+    protected function ensureFilename($filename)
     {
-        $this->waitItems[] = $item;
+        $dir = dirname($filename);
+        if (!is_dir($dir) && !@mkdir($dir, 0777, true)) {
+            return false;
+        }
         return true;
-    }
-
-    public function commit()
-    {
-        array_walk($this->waitItems, function ($v) {
-            $this->save($v);
-        });
     }
 }

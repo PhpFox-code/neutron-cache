@@ -19,7 +19,5 @@
     "psr-4": {
       "Phpfox\\Cache\\": "test/"
     }
-  },
-  "require": {},
-  "require-dev": {}
+  }
 }
