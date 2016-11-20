@@ -4,6 +4,8 @@ namespace Phpfox\Cache;
 
 return [
     'services' => [
-        'cache' => CacheManager::class,
+        'map' => [
+            'cache' => [null, CacheManager::class,],
+        ],
     ],
 ];
