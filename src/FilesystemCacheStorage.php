@@ -7,17 +7,12 @@ use RecursiveIteratorIterator;
 
 /**
  * Simple filesystem cache on local.
- * implement CacheItemPoolInterface
+ * implement FilesystemCacheStorage
  *
  * @package Phpfox\Cache
  */
-class FilesystemCachePool implements CacheItemPoolInterface
+class FilesystemCacheStorage implements CacheStorageInterface
 {
-
-    /**
-     * @var CacheItemInterface[]
-     */
-    protected $waitItems = [];
 
     /**
      * @var bool
@@ -29,19 +24,44 @@ class FilesystemCachePool implements CacheItemPoolInterface
      */
     protected $directory;
 
-    /**
-     * FilesystemCachePool constructor.
-     *
-     * @param      $directory
-     * @param bool $debug
-     */
-    public function __construct($directory, $debug = false)
+    public function __construct($configs)
     {
-        $this->directory = $directory;
-        $this->debug = $debug;
+        $configs = array_merge([
+            'directory' => 'cache',
+            'debug'     => false,
+        ], (array)$configs);
+
+        $this->directory = PHPFOX_DIR . '/data/' . $configs['directory'];
+        $this->debug = (bool)$configs['debug'];
     }
 
-    public function getItems(array $keys = [])
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    private function getFilename($name)
+    {
+        $path = md5($name);
+        $path = substr($path, 0, 3) . DIRECTORY_SEPARATOR . $path;
+        return $this->directory . DIRECTORY_SEPARATOR . $path;
+    }
+
+    /**
+     * @param string $filename
+     *
+     * @return bool
+     */
+    private function ensureFilename($filename)
+    {
+        $dir = dirname($filename);
+        if (!is_dir($dir) && !@mkdir($dir, 0777, true)) {
+            return false;
+        }
+        return true;
+    }
+
+    public function getItems($keys = [])
     {
         return array_map(function ($v) {
             return $this->getItem($v);
@@ -68,18 +88,6 @@ class FilesystemCachePool implements CacheItemPoolInterface
         return $data;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    protected function getFilename($name)
-    {
-        $path = md5($name);
-        $path = substr($path, 0, 3) . DIRECTORY_SEPARATOR . $path;
-        return $this->directory . DIRECTORY_SEPARATOR . $path;
-    }
-
     public function hasItem($key)
     {
         return file_exists($this->getFilename($key));
@@ -104,7 +112,7 @@ class FilesystemCachePool implements CacheItemPoolInterface
         }
     }
 
-    public function deleteItems(array $keys)
+    public function deleteItems($keys)
     {
         array_walk($keys, function ($v) {
             $this->deleteItem($v);
@@ -122,24 +130,11 @@ class FilesystemCachePool implements CacheItemPoolInterface
             if (!$this->debug) {
                 return false;
             } else {
-                throw new CacheException("Can not delete cache item " . $key);
+                throw new InvalidArgumentException("Can not delete item '{$key}'");
             }
         }
 
         return true;
-    }
-
-    public function saveDeferred(CacheItemInterface $item)
-    {
-        $this->waitItems[] = $item;
-        return true;
-    }
-
-    public function commit()
-    {
-        array_walk($this->waitItems, function ($v) {
-            $this->save($v);
-        });
     }
 
     public function save(CacheItemInterface $item)
@@ -150,20 +145,6 @@ class FilesystemCachePool implements CacheItemPoolInterface
             return false;
         }
         if (!file_put_contents($filename, serialize($item))) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * @param string $filename
-     *
-     * @return bool
-     */
-    protected function ensureFilename($filename)
-    {
-        $dir = dirname($filename);
-        if (!is_dir($dir) && !@mkdir($dir, 0777, true)) {
             return false;
         }
         return true;

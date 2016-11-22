@@ -8,7 +8,7 @@ namespace Phpfox\Cache;
  *
  * @package Phpfox\Cache
  */
-class CacheException extends \Exception
+interface CacheException
 {
 
 }

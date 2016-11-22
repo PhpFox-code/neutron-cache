@@ -3,13 +3,13 @@
 namespace Phpfox\Cache;
 
 /**
- * Class ApcCachePool
+ * Class ApcCacheStorage
  *
  * Require apc extension
  *
  * @package Phpfox\Cache
  */
-class ApcCachePool implements CacheItemPoolInterface
+class ApcCacheStorage implements CacheStorageInterface
 {
     public function getItem($key)
     {
@@ -18,7 +18,7 @@ class ApcCachePool implements CacheItemPoolInterface
         return $result;
     }
 
-    public function getItems(array $keys = [])
+    public function getItems($keys = [])
     {
         // TODO: Implement getItems() method.
     }
@@ -41,7 +41,7 @@ class ApcCachePool implements CacheItemPoolInterface
         return apc_delete($key);
     }
 
-    public function deleteItems(array $keys)
+    public function deleteItems($keys)
     {
         array_walk($keys, function ($v) {
             apc_delete($v);
@@ -52,15 +52,5 @@ class ApcCachePool implements CacheItemPoolInterface
     public function save(CacheItemInterface $item)
     {
         // TODO: Implement save() method.
-    }
-
-    public function saveDeferred(CacheItemInterface $item)
-    {
-        // TODO: Implement saveDeferred() method.
-    }
-
-    public function commit()
-    {
-        // TODO: Implement commit() method.
     }
 }

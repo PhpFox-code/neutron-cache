@@ -1,9 +1,8 @@
 <?php
-
 namespace Phpfox\Cache;
 
 
-class CacheManager
+class MemcacheCacheStorage
 {
 
 }
