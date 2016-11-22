@@ -3,7 +3,7 @@
 namespace Phpfox\Cache;
 
 
-class CacheFactory
+class CacheStorageFactory
 {
     /**
      * @param string|null  $class

@@ -36,11 +36,27 @@ return [
         ],
     ],
     'services'       => [
-        'cache.local'     => [CacheFactory::class, null, 'cache.filesystem'],
-        'cache.apc'       => [CacheFactory::class, null, 'cache.apc'],
-        'cache.apcu'      => [CacheFactory::class, null, 'cache.apcu'],
-        'cache'           => [CacheFactory::class, null, 'cache.filesystem'],
-        'cache.memcache'  => [CacheFactory::class, null, 'cache.memcache'],
-        'cache.memcached' => [CacheFactory::class, null, 'cache.memcached'],
+        'cache.local'     => [
+            CacheStorageFactory::class,
+            null,
+            'cache.filesystem',
+        ],
+        'cache.apc'       => [CacheStorageFactory::class, null, 'cache.apc'],
+        'cache.apcu'      => [CacheStorageFactory::class, null, 'cache.apcu'],
+        'cache'           => [
+            CacheStorageFactory::class,
+            null,
+            'cache.filesystem',
+        ],
+        'cache.memcache'  => [
+            CacheStorageFactory::class,
+            null,
+            'cache.memcache',
+        ],
+        'cache.memcached' => [
+            CacheStorageFactory::class,
+            null,
+            'cache.memcached',
+        ],
     ],
 ];
