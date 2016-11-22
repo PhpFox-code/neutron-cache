@@ -1,12 +1,12 @@
 <?php
 namespace Phpfox\Cache;
 
-use Memcache;
+use Memcached;
 
-class MemcacheCacheStorage implements CacheStorageInterface
+class MemcachedCacheStorage implements CacheStorageInterface
 {
     /**
-     * @var Memcache
+     * @var Memcached
      */
     protected $memcache;
 
@@ -15,6 +15,9 @@ class MemcacheCacheStorage implements CacheStorageInterface
      */
     protected $configs;
 
+    /**
+     * @var bool
+     */
     protected $connected = false;
 
     /**
@@ -40,7 +43,7 @@ class MemcacheCacheStorage implements CacheStorageInterface
             return;
         }
 
-        $this->memcache = new Memcache();
+        $this->memcache = new Memcached();
         $v = $this->configs;
 
         foreach ($v['servers'] as $a) {
@@ -55,6 +58,7 @@ class MemcacheCacheStorage implements CacheStorageInterface
             if (!isset($a['retry_interval'])) {
                 $a['retry_interval'] = $v['retry_interval'];
             }
+
             $this->memcache->addServer($a['host'], $a['port'], $a['weight']);
         }
 
@@ -132,8 +136,7 @@ class MemcacheCacheStorage implements CacheStorageInterface
     {
         $this->ready();
 
-        $this->memcache->set($item->key(), $item, MEMCACHE_COMPRESSED,
-            $item->ttl());
+        $this->memcache->set($item->key(), $item, $item->ttl());
     }
 
     function __sleep()
@@ -147,6 +150,4 @@ class MemcacheCacheStorage implements CacheStorageInterface
     {
         // TODO: Implement __wakeup() method.
     }
-
-
 }

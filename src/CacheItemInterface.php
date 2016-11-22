@@ -10,36 +10,45 @@ namespace Phpfox\Cache;
  */
 interface CacheItemInterface
 {
-    public function getKey();
+    /**
+     * Get time to life
+     *
+     * @return int
+     */
+    public function ttl();
 
     /**
-     * @return mixed
+     * Get key
+     *
+     * @return string
+     */
+    public function key();
+
+    /**
+     * Get stored value
+     *
+     * @return mixed|null
      */
     public function get();
 
     /**
-     * @return bool
-     */
-    public function isHit();
-
-    /**
-     * @param $value
-     *
-     * @return mixed
+     * @param mixed $value
      */
     public function set($value);
 
     /**
-     * @param int $expiration
+     * expires cache item afters.
+     *
+     * @param int $ttl
      *
      * @return mixed
      */
-    public function expiresAt($expiration);
+    public function expiresAfter($ttl);
 
     /**
-     * @param int $time seconds
+     * Check current item is valid by time expiration condition.
      *
-     * @return mixed
+     * @return bool
      */
-    public function expiresAfter($time);
+    public function isValid();
 }

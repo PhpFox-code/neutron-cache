@@ -68,6 +68,19 @@ class FilesystemCacheStorage implements CacheStorageInterface
         }, $keys);
     }
 
+    public function save(CacheItemInterface $item)
+    {
+        $filename = $this->getFilename($item->key());
+
+        if (!$this->ensureFilename($filename)) {
+            return false;
+        }
+        if (!file_put_contents($filename, serialize($item))) {
+            return false;
+        }
+        return true;
+    }
+
     public function getItem($key)
     {
         $filename = $this->getFilename($key);
@@ -78,15 +91,18 @@ class FilesystemCacheStorage implements CacheStorageInterface
 
         $data = unserialize(file_get_contents($filename));
 
-        if (!$data instanceof CacheItem
-            || ($data->expiration
-                && $data->expiration < time())
-        ) {
+        if (!$data instanceof CacheItem || !$data->isValid()) {
             return null;
         }
 
         return $data;
     }
+
+    public function setItem($key, $value, $ttl = 0)
+    {
+        $this->save(new CacheItem($key, $value, $ttl));
+    }
+
 
     public function hasItem($key)
     {
@@ -105,10 +121,9 @@ class FilesystemCacheStorage implements CacheStorageInterface
                 rmdir($splInfo->getRealpath());
             }
 
-            if ($splInfo->isDot()) {
-
+            if ($splInfo->isFile()) {
+                unlink($splInfo->getRealpath());
             }
-            unlink($splInfo->getRealpath());
         }
     }
 
@@ -123,7 +138,7 @@ class FilesystemCacheStorage implements CacheStorageInterface
 
     public function deleteItem($key)
     {
-        if (file_exists($filename = $this->getFilename($key))) {
+        if (file_exists($filename = $this->getFilename((string)$key))) {
             if (@unlink($filename)) {
                 return true;
             }
@@ -134,19 +149,6 @@ class FilesystemCacheStorage implements CacheStorageInterface
             }
         }
 
-        return true;
-    }
-
-    public function save(CacheItemInterface $item)
-    {
-        $filename = $this->getFilename($item->getKey());
-
-        if (!$this->ensureFilename($filename)) {
-            return false;
-        }
-        if (!file_put_contents($filename, serialize($item))) {
-            return false;
-        }
         return true;
     }
 }

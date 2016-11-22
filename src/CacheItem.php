@@ -12,75 +12,80 @@ class CacheItem implements CacheItemInterface
     /**
      * @var string
      */
-    public $key;
+    protected $_key;
 
     /**
      * @var mixed
      */
-    public $value;
-
-    /**
-     * @var bool
-     */
-    public $hit = true;
+    protected $_value;
 
     /**
      * @var int
      */
-    public $expiration = 0;
+    protected $_ttls = 0;
+
+    /**
+     * @var int
+     */
+    protected $_expiration = 0;
 
     /**
      * CacheItem constructor.
      *
      * @param string $key
      * @param mixed  $value
-     * @param int    $expiration
+     * @param int    $ttl
      * @param bool   $hit
      */
-    public function __construct(
-        $key,
-        $value = null,
-        $expiration = 0,
-        $hit = true
-    ) {
-        $this->key = $key;
-        $this->value = $value;
-        $this->expiration = $expiration;
-        $this->hit = $hit;
-
+    public function __construct($key, $value, $ttl = null, $hit = true)
+    {
+        $this->_key = $key;
+        $this->_value = $value;
+        $this->_ttls = (int)$ttl;
+        $this->expiresAfter($ttl);
     }
 
-    public function getKey()
+    public function ttl()
     {
-        return $this->key;
+        return $this->_ttls;
+    }
+
+    public function key()
+    {
+        return $this->_key;
     }
 
     public function get()
     {
-        return $this->value;
+        return $this->_value;
     }
 
     public function isHit()
     {
-        return $this->hit;
+        return $this->_hit;
     }
 
     public function set($value)
     {
-        $this->value = $value;
+        $this->_value = $value;
         return $this;
     }
 
-    public function expiresAt($expiration)
+    public function isValid()
     {
-        $this->expiration = $expiration;
-        return $this;
+        return $this->_expiration == 0 || time() <= $this->_expiration;
     }
 
-    public function expiresAfter($time)
+    public function expiresAfter($ttl)
     {
-        $this->expiration = time() + $time;
-        return $this;
+        $this->_expiration = $ttl == 0 ? 0 : time() + (int)$ttl;
     }
 
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->_key;
+    }
 }

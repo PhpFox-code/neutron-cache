@@ -17,6 +17,15 @@ interface CacheStorageInterface
     public function getItem($key);
 
     /**
+     * @param string $key
+     * @param mixed  $value
+     * @param int    $ttl
+     *
+     * @return mixed
+     */
+    public function setItem($key, $value, $ttl = 0);
+
+    /**
      * @param array $keys
      *
      * @return mixed
