@@ -7,8 +7,6 @@ return [
         'filesystem' => FilesystemCacheStorage::class,
         'apc'        => ApcCacheStorage::class,
         'apcu'       => ApcuCacheStorage::class,
-        'memcache'   => MemcacheCacheStorage::class,
-        'memcached'  => MemcachedCacheStorage::class,
     ],
     'cache.adapters' => [
         'cache.filesystem' => [
