@@ -1,5 +1,5 @@
 {
-  "name": "codelego/phpfox-cache",
+  "name": "codelego/neutron-cache",
   "description": "Cache library for phpfox framework.",
   "type": "library",
   "license": "MIT",
