@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Cache;
+namespace Neutron\Cache;
 
 
 class FilesystemCacheStorageTest extends \PHPUnit_Framework_TestCase

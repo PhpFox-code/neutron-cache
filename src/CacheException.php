@@ -1,12 +1,12 @@
 <?php
 
-namespace Phpfox\Cache;
+namespace Neutron\Cache;
 
 
 /**
  * Class CacheException
  *
- * @package Phpfox\Cache
+ * @package Neutron\Cache
  */
 interface CacheException
 {

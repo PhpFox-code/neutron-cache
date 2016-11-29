@@ -1,13 +1,13 @@
 <?php
 
-namespace Phpfox\Cache;
+namespace Neutron\Cache;
 
 /**
  * Class ApcCacheStorage
  *
  * Require apc extension
  *
- * @package Phpfox\Cache
+ * @package Neutron\Cache
  */
 class ApcCacheStorage implements CacheStorageInterface
 {

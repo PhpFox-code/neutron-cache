@@ -1,12 +1,12 @@
 <?php
 
-namespace Phpfox\Cache;
+namespace Neutron\Cache;
 
 /**
  * Do not create instance of CacheItemInterface directly, it should be usage
  * as result of CacheStorageInterface getItem.
  *
- * @package Phpfox\Cache
+ * @package Neutron\Cache
  */
 interface CacheItemInterface
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Phpfox\Cache;
+namespace Neutron\Cache;
 
 /**
  * Class CacheItem
  *
- * @package Phpfox\Cache
+ * @package Neutron\Cache
  */
 class CacheItem implements CacheItemInterface
 {

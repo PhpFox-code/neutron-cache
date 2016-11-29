@@ -1,11 +1,11 @@
 <?php
 
-namespace Phpfox\Cache;
+namespace Neutron\Cache;
 
 /**
  * Interface CacheStorageInterface
  *
- * @package Phpfox\Cache
+ * @package Neutron\Cache
  */
 interface CacheStorageInterface
 {

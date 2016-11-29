@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Cache;
+namespace Neutron\Cache;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -9,7 +9,7 @@ use RecursiveIteratorIterator;
  * Simple filesystem cache on local.
  * implement FilesystemCacheStorage
  *
- * @package Phpfox\Cache
+ * @package Neutron\Cache
  */
 class FilesystemCacheStorage implements CacheStorageInterface
 {

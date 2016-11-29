@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\Cache;
+namespace Neutron\Cache;
 
 return [
     'cache.drivers'  => [
